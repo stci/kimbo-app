@@ -1,9 +1,272 @@
 <!DOCTYPE html>
-<html>
+<html lang="sk">
 <head>
-    <title>Kimbo App</title>
+  <meta name="app-version" content="1.21.2">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kimbo</title>
+  <link rel="icon" type="image/x-icon" href="/assets/kimbo-icon-CqJQlxTV.png">
+  <script type="module" crossorigin src="/assets/index-yqmpubUC.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-N82Wqkmd.css">
 </head>
 <body>
-    <h1>Deployment pripravený</h1>
+  <canvas id="canvas"></canvas>
+  <canvas id="canvas-top"></canvas>
+  
+  <div id="app">
+  <main>
+    <header class="navigation" id="management">
+      <button id="btn-manage-home" class="icon-btn"><img src="/assets/home-CkgpJI0R.png" alt="Domov" /></button>
+      <button id="btn-select-lessons" class="icon-btn"><img src="/assets/training-DzXAgiiI.png" alt="Precvičovanie" /></button>
+      <button id="btn-bookmarks"  class="icon-btn hidden"><img src="/assets/favorites-NC1Se2kM.png" alt="Obľúbené" /></button>
+      <button id="btn-manage-builtin" class="icon-btn"><img src="/assets/courses-CLTeI6qL.png" alt="Slovná zásoba" /></button>
+      <button id="btn-settings"  class="icon-btn"><img src="/assets/settings-D2Gf-C02.png" alt="Nastavenia" /></button>
+    </header>
+
+    <!-- HOME -->
+    <section id="window-home" class="window hidden">
+      <h1>Profil</h1>
+      <div id="div-profile">
+          <div class="row">
+            <div class="icon"><img src="/assets/all-lessons-GYY4g1Qn.png" alt="Profil" /></div><div id="home-lessons" class="value">5 lekcií</div>
+            <div class="icon"><img src="/assets/all-phrases-BGFZ1DCP.png" alt="Výrazy" /></div><div id="home-cards" class="value">12 výrazov</div>
+          </div>
+          <div class="row">
+            <div class="icon"><img src="/assets/completness-j9zDe_IO.png" alt="Dokončené" /></div><div id="home-completed" class="value">60% dokončené</div>
+            <div class="icon"><img src="/assets/points-DPdiA01u.png" alt="Bodov" /></div><div id="home-score" class="value">1535 bodov</div>
+          </div>
+          <div class="row hidden">
+            <div class="icon"><img src="/assets/last-activity-hFo2WYep.png" alt="Aktivita" /></div><div id="home-last-activity" class="value" style="grid-column: span 2;">Posledná aktivita: 2 dni dozadu</div>
+          </div>
+        </table>
+        <div id="score-factor" class="score-factor" style="--score-color: green">
+          <span></span>
+          <strong>1.0</strong>
+          <span></span>
+        </div>
+        <p id="p-stats" class="label hidden"></p>
+        <div class="profile-gallery" id="profile-gallery">
+          <img id="profile-gallery-image" alt="Profile Image" role="button" tabindex="0" aria-label="Zobraziť obrázok na celú obrazovku" aria-pressed="false">
+
+          <button id="btn-gallery-prev" class="gallery-nav gallery-prev">◀</button>
+          <button id="btn-gallery-next" class="gallery-nav gallery-next">▶</button>
+        </div>
+        <p id="gallery-status" class="hidden"></p>
+        <button id="btn-gallery-buy" class="btn hidden">Kúpiť</button>
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section id="window-settings" class="window hidden">
+      <div id="div-activation" class="hidden">
+        <h1>Odomknutie lekcií</h1>
+        <input id="keyInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Zadaj prístupový kód..."/>
+        <button id="btn-unlock" class="btn">Odomkni lekcie</button>
+        <hr />
+      </div>
+
+      <h1>Nastavenia</h1>
+      <p class="label">&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&nbsp;Syntéza a rozpoznávania hlasu&nbsp;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</p>
+      <div class="controls" id="div-setting-voices">
+        <div><img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20id='flag-icons-sk'%20viewBox='0%200%20640%20480'%3e%3cpath%20fill='%23ee1c25'%20d='M0%200h640v480H0z'/%3e%3cpath%20fill='%230b4ea2'%20d='M0%200h640v320H0z'/%3e%3cpath%20fill='%23fff'%20d='M0%200h640v160H0z'/%3e%3cpath%20fill='%23fff'%20d='M233%20370.8c-43-20.7-104.6-61.9-104.6-143.2%200-81.4%204-118.4%204-118.4h201.3s3.9%2037%203.9%20118.4S276%20350%20233%20370.8'/%3e%3cpath%20fill='%23ee1c25'%20d='M233%20360c-39.5-19-96-56.8-96-131.4s3.6-108.6%203.6-108.6h184.8s3.5%2034%203.5%20108.6C329%20303.3%20272.5%20341%20233%20360'/%3e%3cpath%20fill='%23fff'%20d='M241.4%20209c10.7.2%2031.6.6%2050.1-5.6%200%200-.4%206.7-.4%2014.4s.5%2014.4.5%2014.4c-17-5.7-38.1-5.8-50.2-5.7v41.2h-16.8v-41.2c-12-.1-33.1%200-50.1%205.7%200%200%20.5-6.7.5-14.4s-.5-14.4-.5-14.4c18.5%206.2%2039.4%205.8%2050%205.6v-25.9c-9.7%200-23.7.4-39.6%205.7%200%200%20.5-6.6.5-14.4%200-7.7-.5-14.4-.5-14.4%2015.9%205.3%2029.9%205.8%2039.6%205.7-.5-16.4-5.3-37-5.3-37s9.9.7%2013.8.7%2013.8-.7%2013.8-.7-4.8%2020.6-5.3%2037c9.7.1%2023.7-.4%2039.6-5.7%200%200-.5%206.7-.5%2014.4s.5%2014.4.5%2014.4a119%20119%200%200%200-39.7-5.7v26z'/%3e%3cpath%20fill='%230b4ea2'%20d='M233%20263.3c-19.9%200-30.5%2027.5-30.5%2027.5s-6-13-22.2-13c-11%200-19%209.7-24.2%2018.8%2020%2031.7%2051.9%2051.3%2076.9%2063.4%2025-12%2057-31.7%2076.9-63.4-5.2-9-13.2-18.8-24.2-18.8-16.2%200-22.2%2013-22.2%2013S253%20263.3%20233%20263.3'/%3e%3c/svg%3e" width="24" alt="Slovakia"></span>&nbsp;<select name="voice_primary" id="voice_primary"></select></div>
+        <div><img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20id='flag-icons-gb'%20viewBox='0%200%20640%20480'%3e%3cpath%20fill='%23012169'%20d='M0%200h640v480H0z'/%3e%3cpath%20fill='%23FFF'%20d='m75%200%20244%20181L562%200h78v62L400%20241l240%20178v61h-80L320%20301%2081%20480H0v-60l239-178L0%2064V0z'/%3e%3cpath%20fill='%23C8102E'%20d='m424%20281%20216%20159v40L369%20281zm-184%2020%206%2035L54%20480H0zM640%200v3L391%20191l2-44L590%200zM0%200l239%20176h-60L0%2042z'/%3e%3cpath%20fill='%23FFF'%20d='M241%200v480h160V0zM0%20160v160h640V160z'/%3e%3cpath%20fill='%23C8102E'%20d='M0%20193v96h640v-96zM273%200v480h96V0z'/%3e%3c/svg%3e" width="24" alt="United Kingdom"></span>&nbsp;<select name="voice_en" id="voice_en"></select></div>
+        <div><img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20id='flag-icons-de'%20viewBox='0%200%20640%20480'%3e%3cpath%20fill='%23fc0'%20d='M0%20320h640v160H0z'/%3e%3cpath%20fill='%23000001'%20d='M0%200h640v160H0z'/%3e%3cpath%20fill='red'%20d='M0%20160h640v160H0z'/%3e%3c/svg%3e" width="24" alt="Germany"></span>&nbsp;<select name="voice_de" id="voice_de"></select></div>
+        <div class="stt_mode">
+  	      <input id="chkx-stt-mode-beginer" type="checkbox" name="chkx-stt-mode-beginer" checked="false">
+          <label for="chkx-stt-mode-beginer" >Rozpoznávanie hlasu pre začiatočníkov</label>
+        </div>
+        <p class="label">&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&nbsp;Nastavenia tréningu&nbsp;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</p>
+        <div class="settings-training">
+  	      <input id="chkx-training-automatic-mode" type="checkbox" name="chkx-training-automatic-mode" checked="true">
+          <label for="chkx-training-automatic-mode">Automatický režim precvičovania</label>
+        </div>
+        <div class="settings-training">
+          <input id="chkx-training-automatic-evaluation" type="checkbox" name="chkx-training-automatic-evaluation" checked="true">
+          <label for="chkx-training-automatic-evaluation">Automatické vyhodnocovanie (len pre precvičovanie "písania" a "výslovnosti)"</label>
+        </div>
+      </div>
+
+      <!--
+      <div class="controls">
+        <label class="label">Odmeny</label>
+        <div>
+          <button id="stn-btn-reward" class="btn-toggle">X</button>
+          <button id="stn-btn-reward-2" class="btn-toggle">Y</button>
+        </div>
+      </div>
+      -->
+      <div class="controls">
+        <button id="btn-save-settings" class="btn hidden">Použiť nastavenia</button>
+        <button id="btn-reset-data" class="btn">🗑️ Vymazať dáta</button>
+      </div>
+    </section>
+
+    <!-- vstavané lekcie -->
+    <section id="window-builtin" class="window hidden">
+      <h1>Lekcie</h1>
+      <ul id="mng-builtin-check-list"></ul>
+      <!--
+      <div class="controls">
+        <button id="btn-include-builtin" class="btn">Použiť vybrané</button>
+      </div>
+      -->
+      <hr />
+      <div class="controls">
+        <button id="btn-show-userdb" class="btn">Zobraziť vlastnú slovnú zásobu </button>
+      </div>
+      <div id="window-user-database" class="hidden">
+        <textarea id="rawData"></textarea>
+        <div class="controls">
+          <button id="btn-load-userdb" class="btn">Načítať</button>
+        </div>
+        <p id="database-log"></p>
+        <div id="window-help" class="hidden">
+          <hr />
+          <p id="help">
+            <u>Podporované formáty:</u><br />
+            <b>=== Nazov lekcie</b><br />
+            <i> - riadok musí začínať "=== " (vrátane medzery)</i><br /><br />
+            <b>slovenský výraz [poznámka 1] = anglický výraz [poznámka 2]</b><br />
+            <i> - slovenský a anglický výraz je oddelený znakom "="</i><br />
+            <i> - v riadku môže byť len jeden znak "="</i><br />
+            <i> - "poznámky" nie sú povinné</i><br />
+            <i> - "poznámka" musí byť na konci výrazu</i><br />
+          </p>
+        </div>
+      </div>
+    </section>
+	
+    <!-- Výber lekcií -->
+    <section id="window-training-setup" class="window hidden">
+      <h1>Režim precvičovania</h1>
+      <div id="div-training-setup" class="controls">
+        <div id="div-training-modes" class="controls">
+          <button id="btn-training-mode-browse" name="browse" class="btn-training-mode" title="Prezeranie" data-exclusive="true"><img src="/assets/browse-SzgG0JJF.png" alt="Prezeranie" /></button>
+          <button id="btn-training-mode-basic" name="basic" class="btn-training-mode" title="Precvičovanie čítania"><img src="/assets/flip-cards-D2djEU5a.png" alt="Precvičovanie čítania" /></button>
+          <button id="btn-training-mode-speak" name="speak" class="btn-training-mode" title="Precvičovanie výslovnosti"><img src="/assets/speak-CQiWwSH4.png" alt="Precvičovanie výslovnosti" /></button>
+          <button id="btn-training-mode-type" name="type" class="btn-training-mode" title="Precvičovanie písania"><img src="/assets/type-DwhUbCFZ.png" alt="Precvičovanie písania" /></button>
+          <button id="btn-training-mode-game" name="game" class="btn-training-mode hidden" title="Dialóg" data-exclusive="true"><img src="/assets/dialogue-BEAS4yEu.png" alt="Dialóg" /></button>
+        </div>
+      </div>
+      <div id="lesson-selection">
+        <!--<h1>Výber lekcií</h1>-->
+        <ul id="trn-lessons-check-list"></ul>
+
+        <!--
+        <div id="div-user-lessons-checkist" class="hidden">
+          <div id="div-user-lessons-checklist-label">
+            <input id="chkx-user-lessons" type="checkbox" name="chkx-user-lessons">
+            <label  for="chkx-user-lessons" id="user-lessons-note" class="label">Vlastná slovná zásoba</label>
+          </div> 
+          <x!--<p id="user-lessons-note" class="label">Vlastná slovná zásoba</p>--x>
+          <hr />
+          <ul id="user-lessons-check-list"></ul>
+        </div>
+        
+        <div id="div-builtin-lessons-checklist" class="hidden">
+          <div id="div-builtin-lessons-checklist-label">
+            <input id="chkx-builtin-lessons" type="checkbox" name="chkx-builtin-lessons">
+            <label  for="chkx-builtin-lessons" id="builtin-lessons-note" class="label">Pripravené lekcie</label>
+          </div>
+          <x!--<p id="builtin-lessons-note" class="label">Pripravené lekcie</p>--x>
+          <hr />
+          <ul id="builtin-lessons-check-list"></ul>
+        
+          <br />
+        </div>
+        -->
+      </div>
+      <!--
+      <div class="controls">
+        <button id="btn-start-training" class="btn">Precvičovať vybrané</button>
+      </div>
+      -->
+    </section>
+
+    <!-- Kartičky -->
+    <section id="window-training" class="hidden">
+	    <div id="div-progress-bar">
+        <div class="progress-bar perfect"></div>
+        <div class="progress-bar ok"></div>
+        <div class="progress-bar bad"></div>
+        <div class="progress-bar none"></div>
+      </div>
+      <div id="card">
+        <p id="lesson-label"></p>
+        
+        <hr class="card-rating-indicator" />
+        <div class="card-info">
+          <!--<button id="btn-play-audio" class="hidden blink">&#9658; (prehrať zvuk)</button>-->
+          <p id="card-section">&nbsp;</p>
+        </div>
+        <div id="card-content">
+          <p id="question"></p>
+          <hr id="qa_delimiter" class="hidden"/>
+          <p id="answer"></p>
+          <p id="card-note">&nbsp;</p>
+        </div>
+        <hr class="card-rating-indicator" />
+
+        <div id="training-controls">
+        
+          <div id="training-controls-typing" class="hidden">
+            <div id="div-input">
+              <input id="input-typed-answer" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="⌨️ Začni písať..."/>
+            </div>
+          </div>
+
+          <div id="training-controls-speaking" class="hidden">
+            <div id="div-spoken-text" class="hidden">
+              <p id="spoken-text-label" class="label hidden">Tvoja odpoveď</p>
+              <hr style="width: 50%" class="hidden" />
+              <p id="spoken-text"></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="training-common-controls" class="controls">
+          <div id="div-instructions">
+            <p id="instruction-message"></p>
+          </div>
+          <div id="div-countdown">
+            <p id="countdown-message"></p>
+          </div>
+          <div id="div-feedback">
+            <p id="feedback-message" class="label hidden"></p>
+          </div>
+
+          <div id="div-btns-browse" class="hidden">
+            <button id="btn-browse-previous" class="btn"><img src="/assets/previous-7CQhshYy.png" alt="Previous"></button>
+            <!--<button id="btn-browse-flip" class="btn"><img src="images/card/flip.png" alt="Flip"></button>-->
+            <button id="btn-browse-next" class="btn"><img src="/assets/next-DbGq-dtA.png" alt="Next"></button>
+          </div>
+
+          <button id="btn-input-mode-toggle" class="btn hidden">🎤 Hlasový vstup</button>
+          <button id="btn-reveal-answer" class="btn">Ukázať správnu odpoveď</button>
+          <button id="btn-continue" class="btn hidden">Pokračuj</button>
+          <div id="div-user-rating" class="hidden">
+		        <p class="label">Ohodnoť sa</p>
+            <hr />
+            <button id="btn-rating-bad" class="btn" data-rating="0" title="Vôbec som nevedel"><img src="/assets/sad-DuXDlc5w.png"></button><!--128542 -->
+            <button id="btn-rating-ok" class="btn" data-rating="50" title="Nepresne / zaváhal som"><img src="/assets/neutral-DKPSy09H.png"></button>
+            <button id="btn-rating-perfect" class="btn" data-rating="100" title="Perfektne"><img src="/assets/happy-CQRGGp6z.png"></button>
+          </div>        
+		    </div>
+      </div>
+    </section>
+    <!-- <div id="div-bottom-buttons"><button id="btn-settings" class="x">Nastavenia</button></div> -->
+  </main>
+  </div>
+  <div id="div-footer">
+    <span id="app-version" class="label">1.21.2</span>
+    <span id="all-rights" class="label">All rights reserved.</span>
+  </div>
+
+  <!-- Intro Overlay -->
+  <div id="intro-screen">
+    <img alt="Kimbo Logo" id="intro-image">
+  </div>
+
+
 </body>
 </html>

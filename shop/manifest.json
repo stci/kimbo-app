@@ -1,0 +1,86 @@
+[
+  {
+    "id": "001-kimbo-intro.png",
+    "price": 0
+  },
+  {
+    "id": "002-kimbo-icon.png",
+    "price": 0
+  },
+  {
+    "id": "010-kimbo-drawing-1.png",
+    "price": 1000
+  },
+  {
+    "id": "015-kimbo-drawing-2.png",
+    "price": 2000
+  },
+  {
+    "id": "020-kimbo-nap.png",
+    "price": 5000
+  },
+  {
+    "id": "025-kimbo-knight.png",
+    "price": 10000
+  },
+  {
+    "id": "030-kimbo-knight-pencil.png",
+    "price": 20000
+  },
+  {
+    "id": "035-kimbo-knight-with-horse.png",
+    "price": 30000
+  },
+  {
+    "id": "040-dragon-warrior.png",
+    "price": 40000
+  },
+  {
+    "id": "045-knight-on-horse.png",
+    "price": 50000
+  },
+  {
+    "id": "050-storm_warrior_in_the_night_sky.png",
+    "price": 60000
+  },
+  {
+    "id": "055-kimbo-with-owl.png",
+    "price": 70000
+  },
+  {
+    "id": "060-kimbo-with-boy-drawing.png",
+    "price": 80000
+  },
+  {
+    "id": "065-kimbo_moonlit_nap.png",
+    "price": 90000
+  },
+  {
+    "id": "070-kimbo_with_bunny.png",
+    "price": 100000
+  },
+  {
+    "id": "075-kimbo_drawing.png",
+    "price": 120000
+  },
+  {
+    "id": "080-kimbo_dark_theme.png",
+    "price": 140000
+  },
+  {
+    "id": "085-kimbo_cita_zvieratkam.png",
+    "price": 150000
+  },
+  {
+    "id": "090-kimbo_kuchyna.png",
+    "price": 160000
+  },
+  {
+    "id": "095-kimbo_varenie_gulasa.png",
+    "price": 170000
+  },
+  {
+    "id": "100-kimbo_pismenkovy_dazd.png",
+    "price": 180000
+  }
+]
